@@ -157,9 +157,10 @@ class Selectdata():
                     i += 1
                     if i >= 26:
                         row += 1
-                        i = 1
+                        i = 0
                         flag=0
                     break
+            # print(list_eachelement_date)
         self.array_eachelement_date_0 = np.array(list_eachelement_date)  # 将列表转化成数组
         self.data_list.append(self.array_eachelement_date_0)
         # print(self.data_list)
