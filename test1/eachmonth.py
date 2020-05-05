@@ -21,14 +21,20 @@ def eachmonth(filepath):
             # print(monthpath)
             each_month = Selectdata()
             if month == '201811':  # 201811从7号开始
-                row = 13
-                each_month.eachfiles(monthpath, row)
-            elif month == '201903':  # 20193月从4号开始
-                row = 7
-                each_month.eachfiles(monthpath, row)
+                # row = 13
+                list_shape =48
+                each_month.eachfiles(monthpath,list_shape)
+            elif month == '201902':  # 20192月 17号晚8点结束
+                # row = 7
+                list_shape=34
+                each_month.eachfiles(monthpath, list_shape)
+            elif month == '201901':  # 20191月 1-4号 21-31号
+                # row = 7
+                list_shape=24  #原来是30 ，由于缺失了23、24、28号的数据，故改为24
+                each_month.eachfiles(monthpath, list_shape)
             else:
-                row = 0
-                each_month.eachfiles(monthpath, row)
+                list_shape=62
+                each_month.eachfiles(monthpath, list_shape)
             eachmonthdata = each_month.Out()
             if flag == 0:
                 a = eachmonthdata
@@ -40,7 +46,7 @@ def eachmonth(filepath):
             # total_month.append(each_month.Out())
             # data_dict = {'EC_data': each_month.Out()}
             # print(np.array(total_month).shape)
-    np.save(file="./0-72/data0-72_EC_20181107-20190228.npy", arr=a)
+    np.save(file="./0-72/data0-72_EC_20181107-20190217.npy", arr=a)
     print('数据保存成功')
 
 

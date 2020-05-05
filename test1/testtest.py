@@ -23,12 +23,13 @@ class Selectdata():
         self.array_eachelement_date_2 = []
         self.data_list = []
 
-    def element_0_file(self, filepath, temp):
+    def element_0_file(self, filepath, list_shape):
         pathdir = os.listdir(filepath)  # 该路径下的所有文件名
         i = 0  # i 列 表示一天的预测步长
         global list_eachelement_date
-        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(62)]  # 用来存储单一站点11月7号到1130号的数据
-        row = temp
+        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点11月7号到1130号的数据
+        # row = temp
+        row=0
         flag = 0
         for s in pathdir:
             date = s.split('.')[0]  # 日期
@@ -59,13 +60,13 @@ class Selectdata():
         # print(self.data_list)
         # print(np.array(self.data_list).shape)
 
-    def element_1_file(self, filepath, temp):
+    def element_1_file(self, filepath, list_shape):
         pathdir = os.listdir(filepath)  # 该路径下的所有文件名
         i = 0  # i表示一天的预测步长
-        row = temp
+        row = 0
         flag = 0
         global list_eachelement_date
-        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(62)]  # 用来存储单一站点11月7号到1130号的数据
+        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点11月7号到1130号的数据
         for s in pathdir:
             date = s.split('.')[0]  # 日期
             foretime = s.split('.')[1]  # 取出预测步长
@@ -94,13 +95,13 @@ class Selectdata():
         # print(self.data_list)
         # print(np.array(self.data_list).shape)
 
-    def element_2_file(self, filepath, temp):
+    def element_2_file(self, filepath, list_shape):
         pathdir = os.listdir(filepath)  # 该路径下的所有文件名
         i = 0  # i表示一天的预测步长
-        row = temp
+        row = 0
         flag = 0
         global list_eachelement_date
-        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(62)]  # 用来存储单一站点11月7号到1130号的数据
+        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点11月7号到1130号的数据
         for s in pathdir:
             date = s.split('.')[0]  # 日期
             foretime = s.split('.')[1]  # 取出预测步长
@@ -130,19 +131,19 @@ class Selectdata():
         # print(self.data_list)
         # print(np.array(self.data_list).shape)
 
-    def element_3_file(self, filepath, temp):
+    def element_3_file(self, filepath, list_shape):
         pathdir = os.listdir(filepath)  # 该路径下的所有文件名
         i = 0  # i表示一天的预测步长
-        row = temp
+        row = 0
         flag = 0
         global list_eachelement_date
-        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(62)]  # 用来存储单一站点整月的数据
+        list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点整月的数据
         for s in pathdir:
             date = s.split('.')[0]  # 日期
             foretime = s.split('.')[1]  # 取出预测步长
             if flag == 0 and foretime in foretime_step:
                 list_eachelement_date[row][i] = date
-                i =2
+                i = 2
                 flag = 1
             if foretime in foretime_step:
                 newdir = os.path.join(filepath, s)
@@ -158,7 +159,7 @@ class Selectdata():
                     if i >= 26:
                         row += 1
                         i = 0
-                        flag=0
+                        flag = 0
                     break
             # print(list_eachelement_date)
         self.array_eachelement_date_0 = np.array(list_eachelement_date)  # 将列表转化成数组
@@ -183,15 +184,15 @@ class Selectdata():
 
         return self.data_array
 
-    def eachfiles(self, filespath, row):
+    def eachfiles(self, filespath,list_shape):
         pathdir = os.listdir(filespath)
         j = 0
         for fil in pathdir:
             if fil in forcast_element_0:
                 # path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                # print(newdir)
-                self.element_0_file(newdir, row)
+                print(newdir)
+                self.element_0_file(newdir, list_shape)
                 # print(data_list)
                 j += 1
             if fil in forcast_element_1:
@@ -202,22 +203,22 @@ class Selectdata():
                     intervale = i
                     interpath = intervale + '\\'
                     newdir = os.path.join(tempdir, interpath)
-                    # print(newdir)
-                    self.element_1_file(newdir, row)
+                    print(newdir)
+                    self.element_1_file(newdir,list_shape)
                     # print(data_list)
                     j += 1
             if fil in forcast_element_2:
                 path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                # print(newdir)
-                self.element_2_file(newdir, row)
+                print(newdir)
+                self.element_2_file(newdir,list_shape)
                 # print(data_list)
                 j += 1
             if fil in forcast_element_3:
                 path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                # print(newdir)
-                self.element_3_file(newdir, row)
+                print(newdir)
+                self.element_3_file(newdir,list_shape)
                 # print(data_list)
                 j += 1
 

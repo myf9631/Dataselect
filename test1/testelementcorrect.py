@@ -12,7 +12,7 @@ def eachfile(filepath):
     pathdir = os.listdir(filepath)  # 该路径下的所有文件名
     i = 0  # i表示一天的预测步长
     global list_eachelement_date
-    list_eachelement_date = [[0 for i in range(0, 26)] for row in range(64)]  # 用来存储单一站点11月7号到1130号的数据
+    list_eachelement_date = [[0 for i in range(0, 26)] for row in range(34)]  # 用来存储单一站点11月7号到1130号的数据
     print(np.array(list_eachelement_date).shape)
     # for row in range(64):
     # array_eachelement_date[row][i].append(0)
@@ -24,7 +24,7 @@ def eachfile(filepath):
         foretime = s.split('.')[1]  # 取出预测步长
         if flag == 0 and foretime in foretime_step:
             list_eachelement_date[row][i] = date
-            i=2
+            i=1
             flag = 1
         if foretime in foretime_step:
             newdir = os.path.join(filepath, s)
@@ -46,12 +46,12 @@ def eachfile(filepath):
                     i = 0
                     flag=0
                 break
-        print(list_eachelement_date)
+        # print(list_eachelement_date)
     print(list_eachelement_date)
-    print(np.array(list_eachelement_date).shape)
+    # print(np.array(list_eachelement_date).shape)
 
 
-eachfile('H:\\201811\\ecmwf_thin\\10FG3\\999')
+eachfile('H:\\201902\\ecmwf_thin\\2D\\999')
 
 # data=np.load('./0-72/data0-72_EC_20181107-20190228.npy')
 # # data=pd.DataFrame(data)
