@@ -29,18 +29,18 @@ class Selectdata():
         global list_eachelement_date
         list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点11月7号到1130号的数据
         # row = temp
-        row=0
+        row = 0
         flag = 0
+        step = 0
         for s in pathdir:
             date = s.split('.')[0]  # 日期
             foretime = s.split('.')[1]  # 取出预测步长
-            if flag == 0 and foretime in foretime_step:
+            if flag == 0 and foretime == foretime_step[step]:  ##加日期
                 list_eachelement_date[row][i] = date
-                i += 1
+                i = 1
                 flag = 1
-            if foretime in foretime_step:
-                newdir = os.path.join(filepath, s)
-                f1 = open(newdir, 'r')
+            if foretime == foretime_step[step]:
+                f1 = open(os.path.join(filepath, s), 'r')
                 lines = f1.readlines()  # 读取文件中的所有行 列表
                 for line in lines[152:]:  # 取出第74行  此时line为字符串
                     if line == '\n':
@@ -49,11 +49,37 @@ class Selectdata():
                     temp = line[84]  # 取出第84个
                     list_eachelement_date[row][i] = temp  # 将目标数放入列表中
                     i += 1
+                    # print(list_eachelement_date)
                     if i >= 26:
                         row += 1
                         i = 0
                         flag = 0
+                        # step=0
                     break
+            if foretime != foretime_step[step] and foretime in foretime_step:
+                f1 = open(os.path.join(filepath, s), 'r')
+                lines = f1.readlines()  # 读取文件中的所有行 列表
+                for line in lines[152:]:  # 取出第74行  此时line为字符串
+                    if line == '\n':
+                        continue
+                    line = line.strip().split('\t')  # 转换成列表的形式
+                    temp = line[84]  # 取出第84个
+                    i += 1
+                    list_eachelement_date[row][i] = temp  # 将目标数放入列表中
+                    i += 1
+                    # print(list_eachelement_date)
+                    step += 1
+                    if i >= 26:
+                        row += 1
+                        i = 0
+                        flag = 0
+                        step = 0
+                    break
+            step += 1
+            if step >= 25:
+                step = 0
+            if foretime not in foretime_step:
+                step = 0
         self.array_eachelement_date_0 = np.array(list_eachelement_date)  # 将列表转化成数组
         self.data_list.append(self.array_eachelement_date_0)
         # print(list_eachelement_date)
@@ -65,18 +91,18 @@ class Selectdata():
         i = 0  # i表示一天的预测步长
         row = 0
         flag = 0
+        step = 0
         global list_eachelement_date
         list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点11月7号到1130号的数据
         for s in pathdir:
             date = s.split('.')[0]  # 日期
             foretime = s.split('.')[1]  # 取出预测步长
-            if flag == 0 and foretime in foretime_step:
+            if flag == 0 and foretime == foretime_step[step]:
                 list_eachelement_date[row][i] = date
                 i += 1
                 flag = 1
-            if foretime in foretime_step:
-                newdir = os.path.join(filepath, s)
-                f1 = open(newdir, 'r')
+            if foretime == foretime_step[step]:
+                f1 = open(os.path.join(filepath, s), 'r')
                 lines = f1.readlines()  # 读取文件中的所有行 列表
                 for line in lines[80:]:  # 取出第74行  此时line为字符串
                     if line == '\n':
@@ -90,6 +116,29 @@ class Selectdata():
                         i = 0
                         flag = 0
                     break
+            if foretime != foretime_step[step] and foretime in foretime_step:
+                f1 = open(os.path.join(filepath, s), 'r')
+                lines = f1.readlines()  # 读取文件中的所有行 列表
+                for line in lines[80:]:  # 取出第74行  此时line为字符串
+                    if line == '\n':
+                        continue
+                    line = line.strip().split('\t')  # 转换成列表的形式
+                    temp = line[42]  # 取出第84个
+                    i += 1
+                    list_eachelement_date[row][i] = temp  # 将目标数放入列表中
+                    i += 1
+                    step += 1
+                    if i >= 26:
+                        row += 1
+                        i = 0
+                        flag = 0
+                        step = 0
+                    break
+            step += 1
+            if step >= 25:
+                step = 0
+            if foretime not in foretime_step:
+                step = 0
         self.array_eachelement_date_1 = np.array(list_eachelement_date)  # 将列表转化成数组
         self.data_list.append(self.array_eachelement_date_1)
         # print(self.data_list)
@@ -100,18 +149,18 @@ class Selectdata():
         i = 0  # i表示一天的预测步长
         row = 0
         flag = 0
+        step = 0
         global list_eachelement_date
         list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点11月7号到1130号的数据
         for s in pathdir:
             date = s.split('.')[0]  # 日期
             foretime = s.split('.')[1]  # 取出预测步长
-            if flag == 0 and foretime in foretime_step:
+            if flag == 0 and foretime == foretime_step[step]:
                 list_eachelement_date[row][i] = date
                 i += 1
                 flag = 1
-            if foretime in foretime_step:
-                newdir = os.path.join(filepath, s)
-                f1 = open(newdir, 'r')
+            if foretime == foretime_step[step]:
+                f1 = open(os.path.join(filepath, s), 'r')
                 lines = f1.readlines()  # 读取文件中的所有行 列表
                 for line in lines[314:]:  # 取出第74行  此时line为字符串
                     if line == '\n':
@@ -125,6 +174,30 @@ class Selectdata():
                         i = 0
                         flag = 0
                     break
+            if foretime != foretime_step[step] and foretime in foretime_step:
+                f1 = open(os.path.join(filepath, s), 'r')
+                lines = f1.readlines()  # 读取文件中的所有行 列表
+                for line in lines[314:]:  # 取出第74行  此时line为字符串
+                    if line == '\n':
+                        continue
+                    line = line.strip().split('\t')  # 转换成列表的形式
+                    temp = line[205]  # 取出第84个
+                    i += 1
+                    list_eachelement_date[row][i] = temp  # 将目标数放入列表中
+                    i += 1
+                    step += 1
+                    if i >= 26:
+                        row += 1
+                        i = 0
+                        flag = 0
+                        step = 0
+                    break
+            step += 1
+            if step >= 25:
+                step = 0
+            if foretime not in foretime_step:
+                step = 0
+
         self.array_eachelement_date_2 = np.array(list_eachelement_date)  # 将列表转化成数组
         self.data_list.append(self.array_eachelement_date_2)
         # print(list_eachelement_date)
@@ -136,6 +209,7 @@ class Selectdata():
         i = 0  # i表示一天的预测步长
         row = 0
         flag = 0
+        step = 0
         global list_eachelement_date
         list_eachelement_date = [[0 for i in range(0, 26)] for row in range(list_shape)]  # 用来存储单一站点整月的数据
         for s in pathdir:
@@ -143,11 +217,10 @@ class Selectdata():
             foretime = s.split('.')[1]  # 取出预测步长
             if flag == 0 and foretime in foretime_step:
                 list_eachelement_date[row][i] = date
-                i = 2
+                i = 1
                 flag = 1
-            if foretime in foretime_step:
-                newdir = os.path.join(filepath, s)
-                f1 = open(newdir, 'r')
+            if foretime == foretime_step[step]:
+                f1 = open(os.path.join(filepath, s), 'r')
                 lines = f1.readlines()  # 读取文件中的所有行 列表
                 for line in lines[152:]:  # 取出第74行  此时line为字符串
                     if line == '\n':
@@ -161,6 +234,29 @@ class Selectdata():
                         i = 0
                         flag = 0
                     break
+            if foretime != foretime_step[step] and foretime in foretime_step:
+                f1 = open(os.path.join(filepath, s), 'r')
+                lines = f1.readlines()  # 读取文件中的所有行 列表
+                for line in lines[152:]:  # 取出第74行  此时line为字符串
+                    if line == '\n':
+                        continue
+                    line = line.strip().split('\t')  # 转换成列表的形式
+                    temp = line[84]  # 取出第84个
+                    i+=1
+                    list_eachelement_date[row][i] = temp  # 将目标数放入列表中
+                    i += 1
+                    step +=1
+                    if i >= 26:
+                        row += 1
+                        i = 0
+                        flag = 0
+                        step=0
+                    break
+            step += 1
+            if step >= 25:
+                step = 0
+            if foretime not in foretime_step:
+                step = 0
             # print(list_eachelement_date)
         self.array_eachelement_date_0 = np.array(list_eachelement_date)  # 将列表转化成数组
         self.data_list.append(self.array_eachelement_date_0)
@@ -177,21 +273,20 @@ class Selectdata():
         # f['data']=temp_list
         # f['labels'] =self.data_list
         # f.close()
-
         # filename = 'eachmonth10.json'
         # with open(filename, 'w') as j_obj:
         #     json.dump(temp_list, j_obj)
 
         return self.data_array
 
-    def eachfiles(self, filespath,list_shape):
+    def eachfiles(self, filespath, list_shape):
         pathdir = os.listdir(filespath)
         j = 0
         for fil in pathdir:
             if fil in forcast_element_0:
                 # path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                print(newdir)
+                # print(newdir)
                 self.element_0_file(newdir, list_shape)
                 # print(data_list)
                 j += 1
@@ -203,22 +298,22 @@ class Selectdata():
                     intervale = i
                     interpath = intervale + '\\'
                     newdir = os.path.join(tempdir, interpath)
-                    print(newdir)
-                    self.element_1_file(newdir,list_shape)
+                    # print(newdir)
+                    self.element_1_file(newdir, list_shape)
                     # print(data_list)
                     j += 1
             if fil in forcast_element_2:
                 path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                print(newdir)
-                self.element_2_file(newdir,list_shape)
+                # print(newdir)
+                self.element_2_file(newdir, list_shape)
                 # print(data_list)
                 j += 1
             if fil in forcast_element_3:
                 path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                print(newdir)
-                self.element_3_file(newdir,list_shape)
+                # print(newdir)
+                self.element_3_file(newdir, list_shape)
                 # print(data_list)
                 j += 1
 

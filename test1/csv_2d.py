@@ -18,21 +18,19 @@ import pandas as pd
 # 云顶2：3741--6274
 
 data = pd.read_csv('hour_data01/yunding1.csv', usecols=['正点气温'], encoding='GBK')
-data_20181101_20190314 = data[3747:5896]
-# print(data_20181101_20190314)
-data_20181101_20190314.index = range(len(data_20181101_20190314))
-# print(data_20181101_20190314)
-data_df = pd.DataFrame(data_20181101_20190314)
-print(data_df)
-# data_t=data_df.drop(columns=['观测时间'])
-# print(data_t)
-
+data_20181110_20190223 = data[3747:5896]
+data_20181110_20190223.index = range(len(data_20181110_20190223))
+data_df = data_20181110_20190223.drop(data_20181110_20190223.index[1456:1504])
+data_df.index = range(len(data_df))
+# print(data_df)
+new_data_df = data_df.drop(data_df.index[1528:1552])
+print(new_data_df)
 
 # 每隔三小时一个数据
 data_list = []
-for i in range(2149):
+for i in range(2077):  # 2149
     if i % 3 == 0:
-        data_df_sp = data_df.iloc[[i]]
+        data_df_sp = new_data_df.iloc[[i]]
         # print(data_df_sp)
         i += 1
         citydaima = np.array(data_df_sp)
@@ -43,12 +41,12 @@ for i in range(2149):
 print(np.array(data_list).shape)
 
 # 将数据组成二维
-# 云顶1号站12月17号缺少数据
-total_data = [[0 for i in range(0, 25)] for row in range(176)]
+# 云顶1号站12月17号缺少数据 已填充
+total_data = [[0 for i in range(0, 25)] for row in range(169)]
 row = 0
 j = 0
 i = 0
-while i < 717:  # 821
+while i < 693:  # 821 717
     total_data[row][j] = data_list[i]
     j += 1
     i += 1
@@ -57,13 +55,14 @@ while i < 717:  # 821
         j = 0
         i -= 21
 
-for i in range(174):
+for i in range(169):
     print(total_data[i])
 print(np.array(total_data).shape)
 
+
 #
-# np.save("./0-72/data0-72_2d_yunding1obs_20181107-20190228.npy", arr=total_data[0:174])
-# print("数据保存成功")
+np.save("./0-72/data0-72_2d_yunding1obs_20181107-20190217.npy", arr=total_data[0:168])
+print("数据保存成功")
 
 # print(np.array(data_EC).shape)
 # print(data_EC)
