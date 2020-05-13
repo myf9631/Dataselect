@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from test1.testtest import Selectdata
+from testtest import Selectdata
 import json
 
 month_num = ('201811', '201812', '201901', '201902' )

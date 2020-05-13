@@ -29,17 +29,35 @@ data_all = np.append(data_features, [data_targets], axis=0)  # 34 * 3224
 data_all = data_all.transpose()  # 转置3244*35
 np.savetxt("./targets.csv", data_all, delimiter=",", fmt="%f")
 
-# 数据清洗
-data_csv = pd.read_csv("./targets.csv", header=None)
-# 去除特征值全为0的行 和 去除目标值为0的行
-data_csv = data_csv.loc[~(data_csv.loc[:, 0:33] == 0).all(axis=1) & ~(data_csv.loc[:, 34] == 0), :]
-np.savetxt("./targets1.csv", data_csv, delimiter=",", fmt="%f")
+#rf数据
+data_read = pd.read_csv("climate_all_0.csv",header=None)
+data_read = data_read.astype(float)
+flag = 0
+# 去除大部分特征值为 0 的行
+data_read = data_read.loc[~(data_read.loc[:,11:34]==0).all(axis=1) &  ~(data_read.loc[:,7:34]==0).all(axis=1),:]
+
+# 处理方法 2 ：将列中 0 多的列中的0用均值填充
+data_read.loc[data_read[7] == 0,7] = data_read[7].mean()
+data_read.loc[data_read[28] == 0,28] = data_read[28].mean()
+data_read.loc[data_read[29] == 0,29] = data_read[29].mean()
+
+features = data_read.loc[0:4199,1:34]
+targets = data_read.loc[0:4199,35]
+# 切分数据
+X_train,X_test,y_train,y_test = train_test_split(features,targets,test_size=0.25,random_state=0)
+
+#
+# # 数据清洗
+# data_csv = pd.read_csv("./targets.csv", header=None)
+# # 去除特征值全为0的行 和 去除目标值为0的行
+# data_csv = data_csv.loc[~(data_csv.loc[:, 0:33] == 0).all(axis=1) & ~(data_csv.loc[:, 34] == 0), :]
+# np.savetxt("./targets1.csv", data_csv, delimiter=",", fmt="%f")
 
 # 将数据分为训练集与测试集
-data_csv = pd.read_csv("./targets1.csv", header=None)
-features = data_csv.loc[0:1950, 0:33]
-trargets = data_csv.loc[0:1950, 34]
-X_train, X_test, y_train, y_test = train_test_split(features, trargets)  # 默认样本比例是0.75，0.25
+# data_csv = pd.read_csv("./targets1.csv", header=None)
+# features = data_csv.loc[0:1950, 0:33]
+# trargets = data_csv.loc[0:1950, 34]
+# X_train, X_test, y_train, y_test = train_test_split(features, trargets)  # 默认样本比例是0.75，0.25
 
 # 实例化lasso对象，并对训练集数据进行训练
 lasso = Lasso().fit(X_train, y_train)

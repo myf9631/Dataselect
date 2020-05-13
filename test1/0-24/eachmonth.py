@@ -1,16 +1,10 @@
 import os
 import numpy as np
-from test1.testtest import Selectdata
-import json
+from testtest import Selectdata
+
 
 month_num = ('201811', '201812', '201901', '201902' )
 
-# each_month = Selectdata()
-
-# temp = mouth_11.eachfiles('H:\\201811\\ecmwf_thin\\')
-# print(mouth_11.Out().shape)
-# data_dict = {'EC_data': mouth_11}
-# print(data_dict['EC_data'])
 def eachmonth(filepath):
     pathdir = os.listdir(filepath)
     flag = 0
@@ -48,10 +42,6 @@ def eachmonth(filepath):
             # print(np.array(total_month).shape)
     np.save(file="data0-24_EC_20181107-20190217.npy", arr=a)
     print('数据保存成功')
-
-
-# print('云顶一号站 经度：115.42	纬度：40.95972222  海拔高速：1923.4')
-# print(np.array(a).shape)
 
 
 eachmonth('H:\\')

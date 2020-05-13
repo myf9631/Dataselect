@@ -227,6 +227,7 @@ class Selectdata():
                     line = line.strip().split('\t')  # 转换成列表的形式
                     temp = line[84]  # 取出第84个
                     list_eachelement_date[row][i] = temp  # 将目标数放入列表中
+                    # print(list_eachelement_date)
                     i += 3
                     if i >= 26:
                         row += 1
@@ -243,6 +244,7 @@ class Selectdata():
                     temp = line[84]  # 取出第84个
                     i+=3
                     list_eachelement_date[row][i] = temp  # 将目标数放入列表中
+                    # print(list_eachelement_date)
                     i += 3
                     step +=1
                     if i >= 26:
@@ -265,16 +267,6 @@ class Selectdata():
     def Out(self):
         # print(self.data_list)
         self.data_array = np.array(self.data_list)  # 列表转成数组
-        # self.data_array
-        # temp_list =self.data_list
-        # np.save(file="data11.npy", arr=self.data_array)
-        # f=h5py.File('eachmonth10.h5','w')
-        # f['data']=temp_list
-        # f['labels'] =self.data_list
-        # f.close()
-        # filename = 'eachmonth10.json'
-        # with open(filename, 'w') as j_obj:
-        #     json.dump(temp_list, j_obj)
 
         return self.data_array
 
@@ -285,7 +277,7 @@ class Selectdata():
             if fil in forcast_element_0:
                 # path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                # print(newdir)
+                print(newdir)
                 self.element_0_file(newdir, list_shape)
                 # print(data_list)
                 j += 1
@@ -297,28 +289,21 @@ class Selectdata():
                     intervale = i
                     interpath = intervale + '\\'
                     newdir = os.path.join(tempdir, interpath)
-                    # print(newdir)
+                    print(newdir)
                     self.element_1_file(newdir, list_shape)
                     # print(data_list)
                     j += 1
             if fil in forcast_element_2:
                 path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                # print(newdir)
+                print(newdir)
                 self.element_2_file(newdir, list_shape)
                 # print(data_list)
                 j += 1
             if fil in forcast_element_3:
                 path = '999\\'
                 newdir = os.path.join(filespath, fil, path)
-                # print(newdir)
+                print(newdir)
                 self.element_3_file(newdir, list_shape)
                 # print(data_list)
                 j += 1
-
-# mouth_11 = Selectdata()
-# temp = mouth_11.eachfiles('H:\\201811\\ecmwf_thin\\')
-# print('云顶一号站 经度：115.42	纬度：40.95972222  海拔高速：1923.4')
-# print('三维张量的形状', mouth_11.Out().shape)
-# data_dict = {'EC_data': mouth_11}
-# print(data_dict['EC_data'])
